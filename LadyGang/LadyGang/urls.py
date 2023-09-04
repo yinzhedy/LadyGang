@@ -20,5 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     #if see first arg, send to rest of url at second arg (file)
-    path('', include('api.urls'))
-]
+    path('api', include('api.urls')),
+    #send to frontend urls file
+    path('', include('frontend.urls'))
+]   
