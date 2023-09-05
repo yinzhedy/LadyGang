@@ -33,7 +33,7 @@ class Room(models.Model):
     #unique code that identifies the room
     #code is going to store a bunch of characters
     #parameters are constraints
-    code = models.CharField(max_length=8, default='', unique=True)
+    code = models.CharField(max_length=8, default=generate_unique_code, unique=True)
     
     #host = unique, 1 host per room
     #host field going to store info related to host
