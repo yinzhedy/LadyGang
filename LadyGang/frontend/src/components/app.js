@@ -24,8 +24,8 @@ export default class App extends Component {
                         <Route exact path='/' element={<HomePage/>}/>
                         <Route exact path='/join' element={<RoomJoinPage/>}/>
                         <Route exact path='/create' element={<CreateRoomPage/>}/>
-                        <Route exact path='/test' element={<TestPage/>}/>
-                        <Route exact path='/room:roomCode' element={<RoomPage/>}/>
+                        <Route exact path='/testpage' element={<TestPage/>}/>
+                        <Route path='/room/:roomCode' element={<RoomPage/>}/>
                     </Routes>
                 </Router>
                 </>

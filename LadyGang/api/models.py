@@ -27,20 +27,15 @@ def generate_unique_code():
 #group users in a room to control host's music
 #models.Model tells us that room is going to be a model
 class Room(models.Model):
-    #define fields we want to have for our room, info stored for each room
     #fields found via django documentation and looking them up
     
     #unique code that identifies the room
     #code is going to store a bunch of characters
-    #parameters are constraints
     code = models.CharField(max_length=8, default=generate_unique_code, unique=True)
     
     #host = unique, 1 host per room
-    #host field going to store info related to host
     host = models.CharField(max_length=50, unique=True)
     
-    
-    #permission whether guest can pause music
     guest_can_pause = models.BooleanField(null=False, default=False)
 
     votes_to_skip = models.IntegerField(null=False, default=2)

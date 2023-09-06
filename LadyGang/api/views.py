@@ -1,9 +1,8 @@
-#write our endpoints - after the slash - location on web
 from django.shortcuts import render
 #allows us to createa a class that inherits from a generic api view
 #custom http status codes to use for response
 from rest_framework import generics, status
-from .serializers import RoomSerializer, CreateRoomSerializer
+from .serializers import RoomSerializer, CreateRoomSerializer, SingleRoomSerializer
 from .models import Room
 
 #generic API view
@@ -12,31 +11,28 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
-# Create your views here.
+# views
 
 #need request param
 #incoming request goes to endpoint, endpoint delivers a response
 
-#urls are stored in url.py
-
 #allow us to view all rooms/create a room
 #tell it the query set (what we want to return) 
 #give serializer class that returns in a useable format defined in serializer.py
-class RoomView(generics.ListAPIView):
+class RoomsView(generics.ListAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
     
 #using APIView allows us to overide some default methods
 #when we def a method, when we send the req it will dispatch to correct method
 class CreateRoomView(APIView):
-    #this line not actually necessary
+    #this line not actually necessary, convenience
     serializer_class = CreateRoomSerializer
     
     def post(self, request, format=None):
         
         #need to get access to session id
-        #checking if current request/user has an active session
-        #if not create one
+        #checking if current request/user has an active session. if not create one
         if not self.request.session.exists(self.request.session.session_key):
             self.request.session.create()
             
@@ -68,3 +64,19 @@ class CreateRoomView(APIView):
                 room.save()
                 return Response(RoomSerializer(room).data, status=status.HTTP_201_CREATED)
         return Response({'Bad Request' : 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+    
+#single room view 
+class RoomView(generics.ListAPIView):
+    serializer_class = SingleRoomSerializer
+    
+    def get_queryset(self):
+        #retrieve roomCode from the URL kwargs
+        room_code = self.kwargs.get('roomCode')
+        
+        #print roomcode to console for debugging
+        print(f"Recieved 'roomCode' : {room_code}")
+        
+        #query db for room w code matching roomCode
+        queryset = Room.objects.filter(code=room_code)
+        
+        return queryset
