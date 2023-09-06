@@ -20,7 +20,7 @@ export default class CreateRoomPage extends Component {
             votesToSkip: this.defaultVotes
         };
         
-        this.handleRoomButtomPressed = this.handleRoomButtomPressed.bind(this);
+        this.handleRoomButtonPressed = this.handleRoomButtonPressed.bind(this);
         this.handleGuestCanPauseChange = this.handleGuestCanPauseChange.bind(this);
         this.handleVotesChange = this.handleVotesChange.bind(this);
     };
@@ -38,7 +38,7 @@ export default class CreateRoomPage extends Component {
         });
     };
 
-    handleRoomButtomPressed() {
+    handleRoomButtonPressed() {
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type' : 'application/json'},
@@ -105,7 +105,7 @@ export default class CreateRoomPage extends Component {
                             </FormHelperText>
                         </FormControl>
                         <Grid item xs={12} align='center'>
-                            <Button color='primary' variant='contained' onClick={this.handleRoomButtomPressed}>
+                            <Button color='primary' variant='contained' onClick={this.handleRoomButtonPressed}>
                                 Create A Room
                             </Button>
                         </Grid>
