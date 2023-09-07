@@ -9,17 +9,22 @@ function RoomPage() {
 
   // Use the useEffect hook to simulate componentDidMount behavior
   useEffect(() => {
-    // Fetch and update the component's state based on 'roomCode' or any other data
-    // Example API request:
-    fetch(`/api/rooms/${roomCode}`)
+    fetch(`/api/room/${roomCode}`)
       .then(response => response.json())
       .then(data => {
-        setVotesToSkip(data.votesToSkip);
-        setGuestCanPause(data.guestCanPause);
-        setIsHost(data.isHost);
+        if (data.length > 0) {
+          // Assuming you are interested in the first object in the array
+          const firstRoom = data[0];
+          console.log(firstRoom)
+          setVotesToSkip(firstRoom.votes_to_skip);
+          setGuestCanPause(firstRoom.guest_can_pause);
+          setIsHost(firstRoom.isHost);
+        } else {
+          // Handle the case when there are no rooms with the given code
+          console.log('No room data found');
+        }
       });
-
-  }, [roomCode]); // Run this effect whenever 'roomCode' changes
+  }, [roomCode]);
 
   return (
     <div>
