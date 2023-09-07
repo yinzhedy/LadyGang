@@ -43,5 +43,7 @@ class Room(models.Model):
     #automatically add date room was created at
     created_at = models.DateTimeField(auto_now_add=True)
     
+    is_host = models.BooleanField(null=False, default=False)
+    
     #can add methods on this model
     #want fat models and thin views, put most your logic on your models

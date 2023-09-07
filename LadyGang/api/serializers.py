@@ -13,7 +13,7 @@ class RoomSerializer(serializers.ModelSerializer):
         #include all fields we want in the serialization / output
         #id is the primary key (unique int) that can identify the model in relation to all other models
         #id ia automatically created when model is created
-        fields = ('id', 'code', 'host', 'guest_can_pause', 'votes_to_skip', 'created_at')
+        fields = ('__all__')
         
 
 #make sure that data being sent in create room request fits to create room
@@ -22,8 +22,3 @@ class CreateRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
         fields = ('guest_can_pause', 'votes_to_skip')
-        
-class SingleRoomSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Room
-        fields = ('id', 'code', 'host', 'guest_can_pause', 'votes_to_skip', 'created_at' )

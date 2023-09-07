@@ -2,7 +2,7 @@ from django.shortcuts import render
 #allows us to createa a class that inherits from a generic api view
 #custom http status codes to use for response
 from rest_framework import generics, status
-from .serializers import RoomSerializer, CreateRoomSerializer, SingleRoomSerializer
+from .serializers import RoomSerializer, CreateRoomSerializer
 from .models import Room
 
 #generic API view
@@ -66,17 +66,23 @@ class CreateRoomView(APIView):
         return Response({'Bad Request' : 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
     
 #single room view 
-class RoomView(generics.ListAPIView):
-    serializer_class = SingleRoomSerializer
-    
-    def get_queryset(self):
-        #retrieve roomCode from the URL kwargs
-        room_code = self.kwargs.get('roomCode')
-        
-        #print roomcode to console for debugging
-        print(f"Recieved 'roomCode' : {room_code}")
-        
-        #query db for room w code matching roomCode
-        queryset = Room.objects.filter(code=room_code)
-        
-        return queryset
+class GetRoom(APIView):
+    def get(self, request, roomCode):
+        # Query the database for a room with the specified code
+        try:
+            room = Room.objects.get(code=roomCode)
+        except Room.DoesNotExist:
+            return Response({'Room Not Found': 'Invalid Room Code.'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Serialize the room object to JSON using your RoomSerializer
+        serializer = RoomSerializer(room)
+
+        # Check if the current session key matches the host's session key
+        if request.session.session_key == room.host:
+            is_host = request.session.session_key == room.host
+            room.is_host = is_host
+            room.save(update_fields=['is_host'])
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        else:
+            return Response(serializer.data, status=status.HTTP_304_NOT_MODIFIED)
