@@ -17,7 +17,9 @@ const RoomJoinPage = () => {
         if (roomCode.trim() === '') {
             setError(true);
             console.log('room code was empty');
-        } else {
+        }
+        
+        else {
             console.log(roomCode);
             const requestOptions = {
                 method: 'POST',
