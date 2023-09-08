@@ -17,8 +17,7 @@ const RoomJoinPage = () => {
         if (roomCode.trim() === '') {
             setError(true);
             console.log('room code was empty');
-        } 
-        else {
+        } else {
             console.log(roomCode);
             const requestOptions = {
                 method: 'POST',
@@ -31,13 +30,14 @@ const RoomJoinPage = () => {
             fetch('/api/join-room', requestOptions)
                 .then((response) => {
                     if (response.ok) {
-                        console.log('code is valid, room exists');
-                        console.log(response)
+                        console.log('code is valid, room exists, navigating there now.');
+                        navigate('/room/' + roomCode);
                     } else {
-                        setError('Room not found.');
+                        setError(true);
+                        console.log('code invalid, no room found');
+                        window.alert('Invalid code. No matching room found.');
                     }
                 })
-                .then(() => navigate('/room/' + roomCode))
                 .catch((error) => {
                     console.log(error);
                 });
@@ -57,7 +57,7 @@ const RoomJoinPage = () => {
                     label='Code'
                     placeholder='Enter a Room Code'
                     variant='outlined'
-                    helperText={error ? 'Code cannot be empty' : ''}
+                    helperText={error ? 'Invalid Code' : ''}
                     onChange={handleTextFieldChange}
                 />
             </Grid>
