@@ -20,7 +20,6 @@ const App = () => {
                         path="/room/:roomCode"
                         element={<RoomPage />}
                     />
-                    <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Router>
         </div>
