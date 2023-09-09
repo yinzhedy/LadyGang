@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Button, ButtonGroup, Typography } from '@mui/material';
+import { Box, Grid, Button, ButtonGroup, Typography } from '@mui/material';
 import { useNavigate, Link } from 'react-router-dom';
-import { create } from '@mui/material/styles/createTransitions';
 
 const HomePage = () => {
     console.log('hi im homepage')
@@ -13,6 +12,7 @@ const HomePage = () => {
 
     return (
         <Grid container spacing={3}>
+            
             <Grid item xs={12} align='center'>
                 <Typography variant='h3' component='h3'>
                     Lady Gang

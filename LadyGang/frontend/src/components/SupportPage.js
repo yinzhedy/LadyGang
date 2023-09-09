@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const TestPage = () => {
-    console.log(test)
+const SupportPage = () => {
 
     return(
         <div>
-            Test
+            Support
         </div>
     )
 }
@@ -32,4 +31,4 @@ const TestPage = () => {
 //         </div>
 //     }
 // }
-export default TestPage
+export default SupportPage
