@@ -2,7 +2,7 @@ from django.shortcuts import render
 #allows us to createa a class that inherits from a generic api view
 #custom http status codes to use for response
 from rest_framework import generics, status
-from .serializers import RoomSerializer, CreateRoomSerializer
+from .serializers import RoomSerializer, CreateRoomSerializer, UpdateRoomSerializer
 from .models import Room
 
 #generic API view
@@ -139,3 +139,41 @@ class LeaveRoom(APIView):
                 room = room_results[0]
                 room.delete()
         return Response({'Message' : 'Success'}, status=status.HTTP_200_OK)
+    
+class UpdateRoomView(APIView):
+    serializer_class = UpdateRoomSerializer
+    
+    def patch(self, request, format=None):
+        #make sure we create a session if there isnt one
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+        #passing data to serializer to see if valid
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            guest_can_pause = serializer.data.get('guest_can_pause')
+            votes_to_skip = serializer.data.get('votes_to_skip')
+            code = serializer.data.get('code')
+            name = serializer.data.get('room_name')
+            
+            #find room with the same code
+            queryset = Room.objects.filter(code=code)
+            
+            #make sure we found room
+            #if it doesnt exist
+            if not queryset.exists():
+                return Response({'Message' : 'Room Doesnt Exist'}, status=status.HTTP_404_NOT_FOUND)
+            #if we did find a room
+            room = queryset[0]
+            user_id = self.request.session.session_key
+            #see if user is host
+            #if host not do this
+            if room.host != user_id:
+                return Response({'Message' : 'You are not the host of this room'}, status=status.HTTP_403_FORBIDDEN)
+            #if passed test and is host then update fields and save room
+            room.guest_can_pause = guest_can_pause
+            room.votes_to_skip = votes_to_skip
+            room.room_name = name
+            room.save(update_fields=['guest_can_pause', 'votes_to_skip', 'room_name'])
+            return Response(RoomSerializer(room).data, status=status.HTTP_200_OK )
+            
+        return Response({'Bad Request' : 'Invalid Data...'} , status=status.HTTP_400_BAD_REQUEST)

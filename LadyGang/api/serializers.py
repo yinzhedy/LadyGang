@@ -22,3 +22,15 @@ class CreateRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
         fields = ('guest_can_pause', 'votes_to_skip', 'room_name')
+
+#takes in code, guest_can_pause, and votes_to_skip
+class UpdateRoomSerializer(serializers.ModelSerializer):
+    
+    #bypass need for unique code bc code we'll be passing does already exist (therefore isnt unique)
+    #redefined code field so not referencing code field from models (which is unique)
+    #now code will referencing the field below under fields []
+    code = serializers.CharField(validators=[])
+    
+    class Meta:
+        model = Room
+        fields = ('guest_can_pause', 'votes_to_skip', 'room_name', 'code')
