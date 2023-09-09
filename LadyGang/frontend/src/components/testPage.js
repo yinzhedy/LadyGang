@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 
-export default class TestPage extends Component {
-    constructor(props) {
-        super(props);
-    }
+const TestPage = () => {
+    console.log(test)
 
-    render() {
-        return(
-            <p>Test</p>
-        );
-    }
+    return(
+        <div>
+            Test
+        </div>
+    )
 }
 
 // import React, {Component} from 'react';
@@ -34,3 +32,4 @@ export default class TestPage extends Component {
 //         </div>
 //     }
 // }
+export default TestPage

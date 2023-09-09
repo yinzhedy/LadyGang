@@ -4,10 +4,11 @@ import {Grid, Button, Typography} from '@mui/material'
 
 function RoomPage() {
   const { roomCode } = useParams();
+  const [roomName, setRoomName] = useState('');
   const [votesToSkip, setVotesToSkip] = useState(2);
   const [guestCanPause, setGuestCanPause] = useState(false);
   const [isHost, setIsHost] = useState(false);
-  const [roomName, setRoomName] = useState(roomCode)
+  const [roomCodeDisplay, setRoomCodeDisplay] = useState(roomCode);
   const navigate = useNavigate();
 
   // Use the useEffect hook to simulate componentDidMount behavior
@@ -25,14 +26,15 @@ function RoomPage() {
       .then(data => {
         console.log(data)
         if (data) {
-          // grab first room in array
+          setRoomName(data.room_name)
           setVotesToSkip(data.votes_to_skip);
           setGuestCanPause(data.guest_can_pause);
           setIsHost(data.is_host);
         } 
         else {
           // Handle the case when there are no rooms with the given code
-          setRoomName('No Room Found')
+          setRoomName('No Room Name Found')
+          setRoomCodeDisplay('No Room Code Found')
           setVotesToSkip('No data');
           setGuestCanPause('No data');
           setIsHost(false)
@@ -66,31 +68,37 @@ function RoomPage() {
     <div>
       <Grid container spacing={1}>
 
-        <Grid xs={12} align='center'>
-          <Typography variant='h4' component='h4'>
-            Code: {roomName}
+        <Grid item xs={12} align='center'>
+          <Typography variant='h6' component='h6'>
+            Room Name: {roomName}
           </Typography>
         </Grid>
 
-        <Grid xs={12} align='center'>
+        <Grid item xs={12} align='center'>
+          <Typography variant='h6' component='h6'>
+            Code: {roomCodeDisplay}
+          </Typography>
+        </Grid>
+
+        <Grid item xs={12} align='center'>
           <Typography variant='h6' component='h6'>
             Votes: {votesToSkip}
           </Typography>
         </Grid>
 
-        <Grid xs={12} align='center'>
+        <Grid item xs={12} align='center'>
           <Typography variant='h6' component='h6'>
             Guest Can Pause: {guestCanPause ? 'Yes' : 'No'}
           </Typography>
         </Grid>
 
-        <Grid xs={12} align='center'>
+        <Grid item xs={12} align='center'>
           <Typography variant='h6' component='h6'>
             Host: {isHost ? 'Yes' : 'No'}
           </Typography>
         </Grid>
 
-        <Grid xs={12} align='center'>
+        <Grid item xs={12} align='center'>
           <Button color='secondary' variant='contained' onClick={leaveButtonPressed}>
             Leave Room
           </Button>

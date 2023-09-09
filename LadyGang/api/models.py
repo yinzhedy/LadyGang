@@ -45,5 +45,7 @@ class Room(models.Model):
     
     is_host = models.BooleanField(null=False, default=False)
     
+    room_name = models.CharField(max_length=20, unique=False, default='Room')
+    
     #can add methods on this model
     #want fat models and thin views, put most your logic on your models
