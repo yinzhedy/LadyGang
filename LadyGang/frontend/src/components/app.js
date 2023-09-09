@@ -9,6 +9,8 @@ import SupportPage from "./SupportPage";
 import RoomPage from "./RoomPage";
 import { createTheme, ThemeProvider } from '@mui/material';
 import NavBar from './NavBar';
+import dotenv from 'dotenv';
+
 
 const theme = createTheme({
     palette: {
@@ -47,6 +49,7 @@ const theme = createTheme({
 createTheme();
 
 const App = () => {
+
     return (
     <ThemeProvider theme={theme}>
         <NavBar/>

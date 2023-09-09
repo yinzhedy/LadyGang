@@ -9,6 +9,9 @@
 
 const path = require("path");
 const webpack = require("webpack");
+const Dotenv = require('dotenv-webpack');
+const os = require('os');
+const crypto = require('crypto');
 
 module.exports = {
   entry: "./src/index.js",
@@ -30,11 +33,21 @@ module.exports = {
   optimization: {
     minimize: true,
   },
+  resolve: {
+    fallback: {
+      path: require.resolve('path-browserify'),
+      os: require.resolve('os-browserify/browser'),
+      stream: require.resolve('stream-browserify'), // Add this line
+      buffer: require.resolve('buffer/'), // Add this line
+      crypto: require.resolve('crypto-browserify'),
+    }
+  },  
   plugins: [
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify("development"),
       },
     }),
+    new Dotenv(),
   ],
 };
