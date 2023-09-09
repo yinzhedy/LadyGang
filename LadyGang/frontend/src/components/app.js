@@ -14,18 +14,32 @@ const theme = createTheme({
     palette: {
         rose: {
           main: '#BD4F6C',
+          dark: "#853249",
+          light: '#D2899C'
+          
         },
         vanilla: {
           main: '#FFF9A5',
+          light: '#FFFDD6',
+          very_light: '#FFFEEB'
         },
         fairy_pink: {
             main: '#FFCBDD',
+            light: '#FFEBF2',
+            dark: '#FF70A2',
+            very_dark: '#F50056'
           },
-        pale_azure: {
+        azure: {
           main: '#89DAFF',
+          dark: '#47C5FF',
+          very_dark: '#47C5FF',
+          light: '#C2ECFF'
         },
-        cadet_grey: {
+        grey: {
             main: '#9DB4C0',
+            dark: '#6A8DA0',
+            very_dark: '#405764',
+            light: '#CDD9DF'
         }
       },
 });

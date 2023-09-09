@@ -78,9 +78,11 @@ const NavBar = () => {
                     <Button color="inherit"
                         sx={{
                             marginLeft: 'auto', // Pushes "Support" to the right
-                        }}>
+                        }}
+                        onClick={() => { window.location.href = '/support' }}
+                        >
                         Support
-                    </Button>
+                    </Button >
                 </Toolbar>
             </AppBar>
         </Box>
