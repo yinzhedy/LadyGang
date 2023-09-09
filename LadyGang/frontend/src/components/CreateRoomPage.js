@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
 import { Link, useNavigate } from 'react-router-dom'; // Use useNavigate instead of useHistory
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { Grid,
+  Typography,
+  Button,
+  TextField,
+  FormHelperText,
+  FormControl,
+  Radio,
+  RadioGroup,
+  FormControlLabel }
+  from '@mui/material'
+
 
 const CreateRoomPage = () => {
   const defaultVotes = 2;
@@ -39,12 +41,21 @@ const CreateRoomPage = () => {
         room_name: roomName,
         votes_to_skip: votesToSkip,
         guest_can_pause: guestCanPause,
-      }),
-    };
-    fetch('api/create-room', requestOptions)
+        }),
+      };
+      console.log('Request Options:', requestOptions)
+    fetch('/api/create-room', requestOptions)
       .then((response) => response.json())
-      .then((data) => navigate('/room/' + data.code));
-  };
+      .then((data) => {
+        console.log(data);
+        navigate('/music/room/' + data.code);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    };
+
+
   return (
     <Grid container spacing={3}>
 
@@ -123,7 +134,7 @@ const CreateRoomPage = () => {
             color="secondary"
             variant="contained"
             component={Link}
-            to="/">
+            to="/music">
             Back
           </Button>
         </Grid>

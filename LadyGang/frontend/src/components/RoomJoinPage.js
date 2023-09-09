@@ -18,7 +18,7 @@ const RoomJoinPage = () => {
             setError(true);
             console.log('room code was empty');
         }
-        
+
         else {
             console.log(roomCode);
             const requestOptions = {
@@ -33,7 +33,7 @@ const RoomJoinPage = () => {
                 .then((response) => {
                     if (response.ok) {
                         console.log('code is valid, room exists, navigating there now.');
-                        navigate('/room/' + roomCode);
+                        navigate('/music/room/' + roomCode);
                     } else {
                         setError(true);
                         console.log('code invalid, no room found');
@@ -69,7 +69,7 @@ const RoomJoinPage = () => {
                 </Button>
             </Grid>
             <Grid item xs={12} align='center'>
-                <Button variant='contained' color='secondary' to='/' component={Link}>
+                <Button variant='contained' color='secondary' to='/music' component={Link}>
                     Back
                 </Button>
             </Grid>

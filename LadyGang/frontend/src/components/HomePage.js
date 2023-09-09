@@ -5,29 +5,11 @@ import { create } from '@mui/material/styles/createTransitions';
 
 const HomePage = () => {
     console.log('hi im homepage')
-
-    const [roomCode, setRoomCode] = useState(null);
-    const [inRoom, setInRoom] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('checking if user in room')
-            fetch('/api/user-in-room')
-                .then((response) => {
-                    console.log(response)
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    setInRoom(true);
-                    setRoomCode(data.code);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-    }, [roomCode]);
+        console.log('this is the homepage')
+    }, []);
 
     return (
         <Grid container spacing={3}>
@@ -38,25 +20,8 @@ const HomePage = () => {
             </Grid>
             <Grid item xs={12} align='center'>
             <ButtonGroup disableElevation variant='contained' color='primary'>
-                <Button color='primary' onClick={() => {
-                        console.log(roomCode)
-                        if (roomCode === null) {
-                            navigate('/join')
-                        }
-                        else {
-                            navigate('/room/' + roomCode)
-                        }}}>
-                    Join A Room
-                </Button>
-                <Button color='secondary' onClick={() => {
-                        console.log(roomCode)
-                        if (roomCode === null) {
-                            navigate('/create')
-                        }
-                        else {
-                            navigate('room/' + roomCode)
-                        }}}>
-                    Create A Room
+                <Button color='primary' onClick={() => { navigate('/music')}}>
+                    Music Rooms
                 </Button>
             </ButtonGroup>
             </Grid>

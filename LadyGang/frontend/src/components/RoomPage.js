@@ -12,12 +12,15 @@ function RoomPage() {
   const navigate = useNavigate();
 
   // Use the useEffect hook to simulate componentDidMount behavior
+  
   useEffect(() => {
     fetch(`/api/get-room/${roomCode}`)
       .then(response => {
         if (!response.ok){
+          console.log(roomCode + "im in roomPage")
+          console.log(response + "im in roomPage")
           console.log('Bad Response for GET room:' + response)
-          navigate('/')
+          navigate('/music')
         }
         else {
           return response.json()
@@ -25,6 +28,7 @@ function RoomPage() {
         })
       .then(data => {
         console.log(data)
+        console.log('im in room page')
         if (data) {
           setRoomName(data.room_name)
           setVotesToSkip(data.votes_to_skip);
@@ -56,7 +60,7 @@ function RoomPage() {
                 }
                 else {
                   console.log('Network response was ok');
-                  navigate('/')
+                  navigate('/music')
                 }
             })
             .catch((error) => {
