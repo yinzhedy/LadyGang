@@ -9,7 +9,7 @@ import SupportPage from "./SupportPage";
 import RoomPage from "./RoomPage";
 import { createTheme, ThemeProvider } from '@mui/material';
 import NavBar from './NavBar';
-import dotenv from 'dotenv';
+import RoomSettingsPage from "./RoomSettingsPage";
 
 
 const theme = createTheme({
@@ -63,8 +63,10 @@ const App = () => {
                     <Route path="/support" element={<SupportPage />} />
                     <Route
                         path="/music/room/:roomCode"
-                        element={<RoomPage />}
-                    />
+                        element={<RoomPage />}/>
+                    <Route 
+                        path="/music/room/:roomCode/settings"
+                        element={<RoomSettingsPage/>}/>
                 </Routes>
             </Router>
         </div>

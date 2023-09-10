@@ -9,11 +9,14 @@ function RoomPage() {
   const [guestCanPause, setGuestCanPause] = useState(false);
   const [isHost, setIsHost] = useState(false);
   const [roomCodeDisplay, setRoomCodeDisplay] = useState(roomCode);
+  const [showSettings, setShowSettings] = useState(false);
   const navigate = useNavigate();
 
   // Use the useEffect hook to simulate componentDidMount behavior
   
   useEffect(() => {
+
+
     fetch(`/api/get-room/${roomCode}`)
       .then(response => {
         if (!response.ok){
@@ -34,6 +37,7 @@ function RoomPage() {
           setVotesToSkip(data.votes_to_skip);
           setGuestCanPause(data.guest_can_pause);
           setIsHost(data.is_host);
+          setShowSettings(data.is_host)
         } 
         else {
           // Handle the case when there are no rooms with the given code
@@ -68,6 +72,34 @@ function RoomPage() {
             });
   }
 
+  function handleSettingsButtonClicked() {
+    if (isHost === true) {
+      let path = '/music/room/'+ roomCode + '/settings'
+      console.log('path is:' + path)
+      navigate(path)
+    }
+    else {
+      console.log('Failed the final test, is not host. Access Denied.')
+    }
+  }
+
+  function renderSettingsButton() {
+
+      console.log('showSettings is: ' + showSettings)
+      return (
+        <Grid item xs={12} align='center'>
+          <Button variant='contained'
+            color='primary'
+            onClick={() =>{
+              handleSettingsButtonClicked()
+            }}>
+              Settings
+          </Button>
+        </Grid>
+      )
+    };
+
+
   return (
     <div>
       <Grid container spacing={1}>
@@ -101,7 +133,7 @@ function RoomPage() {
             Host: {isHost ? 'Yes' : 'No'}
           </Typography>
         </Grid>
-
+        {showSettings ? renderSettingsButton() : null }
         <Grid item xs={12} align='center'>
           <Button color='secondary' variant='contained' onClick={leaveButtonPressed}>
             Leave Room

@@ -9,4 +9,5 @@ urlpatterns = [
     path('music/create', index),
     path('support', index),
     path('music/room/<str:roomCode>', index),
+    path('music/room/<str:roomCode>/settings', index)
 ]   
