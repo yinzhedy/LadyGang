@@ -123,7 +123,7 @@ const theme = createTheme({
             fontSize: '1.5vmin'
           },
           m: {
-            fontSize: '3vmin'
+            fontSize: '2.25vmin'
           },
           l: {
             fontSize: '4vmin'

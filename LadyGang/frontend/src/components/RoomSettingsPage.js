@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import {Grid, Button, IconButton, Typography, TextField, FormControl, FormControlLabel, RadioGroup, Radio} from '@mui/material'
+import {useTheme, Card, Grid, Box, Button, IconButton, Typography, TextField, FormControl, FormControlLabel, RadioGroup, Radio} from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 
@@ -15,6 +15,7 @@ function RoomSettingsPage() {
     const [isEditingVotes, setIsEditingVotes] = useState(false);
     const [isEditingPause, setIsEditingPause] = useState(false);
     const navigate = useNavigate();
+    const theme = useTheme();
 
   // Use the useEffect hook to simulate componentDidMount behavior
 
@@ -146,7 +147,13 @@ function RoomSettingsPage() {
                     return (
                         <div>
                             <Typography
-                            align='center'>
+                                align='center'
+                                sx={{
+                                    fontFamily: theme.typography.font_style.poppins,
+                                    fontSize: theme.typography.font_size.m,
+                                    fontWeight: theme.typography.font_weight.extra_light
+                                }}   
+                            >
                                 Room Name:
                             </Typography>
                             <TextField
@@ -154,9 +161,30 @@ function RoomSettingsPage() {
                                 type={type_param}
                                 autoFocus={isEditing}
                                 onChange={handleChange}
+                                sx={{
+                                    fontFamily: 'inherit',
+                                    "& .MuiInputLabel-root": {color: theme.palette.grey.light},
+                                    "& .MuiOutlinedInput-root": {
+                                        "& > fieldset": { borderColor: theme.palette.grey.light },
+                                    },
+                                    "& .MuiOutlinedInput-root.Mui-focused": {
+                                        "& > fieldset": {
+                                        borderColor: theme.palette.azure.light
+                                        }
+                                    },
+                                    }}
+                                inputProps={{
+                                    min: 1,
+                                    max: 999,
+                                    sx: {
+                                    fontFamily: theme.typography.font_style.poppins,
+                                    fontWeight: theme.typography.font_weight.light,
+                                    textAlign: 'center',
+                                    },
+                                }}
                             />
                             <IconButton
-                                color="primary"
+                                color='black'
                                 aria-label={isEditing ? 'Save' : 'Edit'}
                                 onClick={() => {isEditing ? handleSaveIconClick(target_param) : handleEditIconClick(target_param)}}
                             >
@@ -169,14 +197,26 @@ function RoomSettingsPage() {
                     return(
                         <div>
                         <Typography
-                            align='center'>
+                            align='center'
+                            sx={{
+                                fontFamily: theme.typography.font_style.poppins,
+                                fontSize: theme.typography.font_size.m,
+                                fontWeight: theme.typography.font_weight.extra_light
+                            }}    
+                        >
                             Room Name:
                         </Typography>
                         <Typography
-                            align='center'>
+                            align='center'
+                            sx={{
+                                fontFamily: theme.typography.font_style.poppins,
+                                fontSize: theme.typography.font_size.s,
+                                fontWeight: theme.typography.font_weight.extra_light
+                            }}
+                        >
                             {roomName}
                             <IconButton
-                                color="primary"
+                                color='black'
                                 aria-label={isEditing ? 'Save' : 'Edit'}
                                 onClick={() => {isEditing ? handleSaveIconClick(target_param) : handleEditIconClick(target_param)}}
                             >
@@ -196,7 +236,13 @@ function RoomSettingsPage() {
                     return (
                         <div>
                         <Typography
-                        align='center'>
+                            align='center'
+                            sx={{
+                                fontFamily: theme.typography.font_style.poppins,
+                                fontSize: theme.typography.font_size.m,
+                                fontWeight: theme.typography.font_weight.extra_light
+                            }}   
+                        >
                             Votes to Skip:
                         </Typography>
                         <TextField
@@ -204,9 +250,30 @@ function RoomSettingsPage() {
                             type={type_param}
                             autoFocus={isEditing}
                             onChange={handleChange}
+                            sx={{
+                                fontFamily: 'inherit',
+                                "& .MuiInputLabel-root": {color: theme.palette.grey.light},
+                                "& .MuiOutlinedInput-root": {
+                                    "& > fieldset": { borderColor: theme.palette.grey.light },
+                                },
+                                "& .MuiOutlinedInput-root.Mui-focused": {
+                                    "& > fieldset": {
+                                    borderColor: theme.palette.azure.light
+                                    }
+                                },
+                                }}
+                            inputProps={{
+                                min: 1,
+                                max: 999,
+                                sx: {
+                                fontFamily: theme.typography.font_style.poppins,
+                                fontWeight: theme.typography.font_weight.light,
+                                textAlign: 'center',
+                                },
+                            }}
                         />
                         <IconButton
-                            color="primary"
+                            color='black'
                             aria-label={isEditing ? 'Save' : 'Edit'}
                             onClick={() => {isEditing ? handleSaveIconClick(target_param) : handleEditIconClick(target_param)}}
                         >
@@ -219,14 +286,26 @@ function RoomSettingsPage() {
                     return (
                         <div>
                         <Typography
-                            align='center'>
+                            align='center'
+                            sx={{
+                                fontFamily: theme.typography.font_style.poppins,
+                                fontSize: theme.typography.font_size.m,
+                                fontWeight: theme.typography.font_weight.extra_light
+                            }}   
+                        >
                             Votes to Skip:
                         </Typography>
                         <Typography
-                            align='center'>
+                            align='center'
+                            sx={{
+                                fontFamily: theme.typography.font_style.poppins,
+                                fontSize: theme.typography.font_size.s,
+                                fontWeight: theme.typography.font_weight.extra_light
+                            }}
+                        >
                             {votesToSkip}
                             <IconButton
-                                color="primary"
+                                color='black'
                                 aria-label={isEditing ? 'Save' : 'Edit'}
                                 onClick={() => {isEditing ? handleSaveIconClick(target_param) : handleEditIconClick(target_param)}}
                             >
@@ -246,26 +325,68 @@ function RoomSettingsPage() {
             if (isEditingPause === true) {
                 return (
                     <div>
-                        <Typography align='center'>
+                        <Typography 
+                            align='center'
+                            sx={{
+                                fontFamily: theme.typography.font_style.poppins,
+                                fontSize: theme.typography.font_size.m,
+                                fontWeight: theme.typography.font_weight.extra_light
+                            }}   
+                        >
                             Guest Can Pause:
                         </Typography>
                         <RadioGroup
                             row
                             defaultValue="true"
-                            onChange={handleChange}>
+                            onChange={handleChange}
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }}
+                        >
                         <FormControlLabel
                             value="true"
-                            control={<Radio color="primary" />}
-                            label="Play/Pause"
-                            labelPlacement="bottom"/>
+                            labelPlacement="bottom"
+                            control={<Radio 
+                                sx={{
+                                    "&.Mui-checked": {
+                                    color: theme.palette.azure.main
+                                    }
+                                }}
+                            />}
+                        label={<Typography 
+                                    sx={{
+                                        fontFamily: 'inherit',
+                                        fontSize: theme.typography.font_size.s,
+                                        fontWeight: theme.typography.font_weight.extra_light,
+                                        color: 'black'
+                                    }}>
+                            Yes
+                                </Typography>}
+                        />
                         <FormControlLabel
                             value="false"
-                            control={<Radio color="secondary" />}
-                            label="No Control"
-                            labelPlacement="bottom"/>
+                            labelPlacement="bottom"
+                            control={<Radio 
+                                    sx={{
+                                        "&.Mui-checked": {
+                                        color: theme.palette.azure.main
+                                        }
+                                    }}
+                                />}
+                            label={<Typography 
+                                        sx={{
+                                            fontFamily: 'inherit',
+                                            fontSize: theme.typography.font_size.s,
+                                            fontWeight: theme.typography.font_weight.extra_light,
+                                            color: 'black'
+                                        }}>
+                                No
+                                    </Typography>}
+                        />
                         </RadioGroup>
                         <IconButton
-                        color="primary"
+                        color='black'
                         aria-label={isEditingPause ? 'Save' : 'Edit'}
                         onClick={() => {isEditing ? handleSaveIconClick(target_param) : handleEditIconClick(target_param)}}
                     >
@@ -277,10 +398,17 @@ function RoomSettingsPage() {
             else {
                 return (
                     <div>
-                        <Typography align='center'>
+                        <Typography 
+                            align='center'
+                            sx={{
+                                fontFamily: theme.typography.font_style.poppins,
+                                fontSize: theme.typography.font_size.m,
+                                fontWeight: theme.typography.font_weight.extra_light
+                            }}   
+                        >
                             Guest Can Pause: {guestCanPause ? 'Yes' : 'No'}
                             <IconButton
-                                color="primary"
+                                color='black'
                                 aria-label={isEditingPause ? 'Save' : 'Edit'}
                                 onClick={() => {isEditing ? handleSaveIconClick(target_param) : handleEditIconClick(target_param)}}>
                             {isEditingPause ? <SaveIcon /> : <EditIcon />}
@@ -299,32 +427,127 @@ function RoomSettingsPage() {
     }
 
     return (
-    <React.Fragment>
-        <FormControl>
-        <Grid container spacing={1}>
+    <Box
+        sx={{
+            display: 'flex',
+            alignItems: 'baseline',
+            justifyContent: 'center',
+            wrap: 'wrap',
+            marginTop: '0',
+            marginLeft: '0',
+            height: '100%',
+            width: '100% + 24px',
+            backgroundColor: theme.palette.chloe_beige.main,
+            fontFamily: theme.typography.font_style.poppins,
+        }}
+    >
+        <Grid container spacing={0}>
             <Grid item xs={12} align='center'>
-                {renderEditableElement('TextField', 'string', 'roomName')}
-            </Grid>
-            <Grid item xs={12} align='center'>
-                {renderEditableElement('TextField', 'number', 'votesToSkip')}
-            </Grid>
-            <Grid item xs={12} align='center'>
-                {renderEditableElement('RadioGroup', 'boolean', 'guestCanPause')}
-            </Grid>
+                <Typography
+                    variant='h4'
+                    component='h4'
+                sx={{
+                    fontFamily: theme.typography.font_style.chloe,
+                    fontWeight: theme.typography.font_weight.bold,
+                    fontSize: theme.typography.font_size.title,
+                    color: 'white',
+                    paddingTop: '8%',
+                    paddingBottom: '5%'
+                }}
+                >
+                Settings
+                </Typography>
 
-            <Grid item xs={12} align='center'>
-                <Button color='secondary' variant='contained' onClick={saveButtonPressed}>
-                    Save Changes
-                </Button>
             </Grid>
             <Grid item xs={12} align='center'>
-                <Button color='secondary' variant='contained' onClick={backButtonPressed}>
+                <Card
+                    variant="outlined"
+                    align='center'
+                    sx={{
+                        backgroundColor: 'white',
+                        fontFamily: theme.typography.font_style.poppins,
+                        width: '40%',
+                        paddingTop: '5%',
+                        paddingBottom: '5%',
+                    }}
+                >
+                    <FormControl>
+                        <Grid container spacing={4}>
+                            <Grid 
+                                item xs={12} 
+                                align='center'>
+                                {renderEditableElement('TextField', 'string', 'roomName')}
+                            </Grid>
+                            <Grid item xs={12} align='center'>
+                                {renderEditableElement('TextField', 'number', 'votesToSkip')}
+                            </Grid>
+                            <Grid item xs={12} align='center'>
+                                {renderEditableElement('RadioGroup', 'boolean', 'guestCanPause')}
+                            </Grid>
+                            <Grid item xs={12} align='center'>
+                                <Button 
+                                    color='secondary' 
+                                    variant='contained' 
+                                    onClick={saveButtonPressed}
+                                    sx={{
+                                        backgroundColor: theme.palette.chloe_beige.main,
+                                        ':hover': {
+                                            color: 'white',
+                                            bgcolor: theme.palette.chloe_beige.main
+                                        },
+                                        color: 'inherit',
+                                        fontFamily: 'inherit',
+                                        fontSize: theme.typography.font_size.s,
+                                        fontWeight: theme.typography.font_weight.extra_light,
+                                        borderRadius: '.15rem',
+                                        }}
+                                >
+                                Save Changes
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </FormControl>
+                </Card>
+            </Grid>
+            <Grid 
+                item xs={12} 
+                align='center'
+                sx={{
+                    width: '100%',
+                    paddingTop: '3%',
+                    paddingBottom: '3%',
+                    position: 'absolute',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    bottom: '0',
+                    }}
+            >
+                <Button 
+                    color='secondary' 
+                    variant='contained' 
+                    onClick={backButtonPressed}
+                    sx={{
+                        backgroundColor: 'white',
+                        ':hover': {
+                            color: 'white',
+                            bgcolor: theme.palette.chloe_beige.main,
+                            borderColor: 'white',
+                        },
+                        color: 'inherit',
+                        fontFamily: 'inherit',
+                        fontSize: theme.typography.font_size.s,
+                        fontWeight: theme.typography.font_weight.light,
+                        borderRadius: '.25rem',
+                        borderStyle: 'solid',
+                        borderColor: 'black',
+                        borderWidth: '.1rem' 
+                        }}
+                >
                     Back
                 </Button>
             </Grid>
-        </Grid>
-        </FormControl>
-    </React.Fragment>
+        </Grid> 
+    </Box>
     );
 }
 

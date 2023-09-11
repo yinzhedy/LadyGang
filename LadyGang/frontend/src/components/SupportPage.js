@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom'
 import {
     Box,
     Card,
@@ -132,7 +133,8 @@ const SupportPage = () => {
                             variant='h6' 
                             component='h6'
                             sx={{
-                                fontFamily: 'inherit'
+                                fontFamily: 'inherit',
+                                fontWeight: theme.typography.font_weight.light
                             }}
                         >
                         Send a Message
@@ -195,7 +197,7 @@ const SupportPage = () => {
                                     color: 'inherit',
                                     fontFamily: 'inherit',
                                     fontSize: theme.typography.font_size.s,
-                                    fontWeight: theme.typography.font_weight.extra_light,
+                                    fontWeight: theme.typography.font_weight.light,
                                     borderRadius: '.15rem',
                                 }}
                                 onClick={handleSendButtonClicked}>
@@ -206,6 +208,43 @@ const SupportPage = () => {
                     </CardContent>
                 </Card>
                 </Grid>
+                <Grid item xs={12} align="center"
+                sx={{
+                    width: '100%',
+                    paddingTop: '3%',
+                    paddingBottom: '3%',
+                    position: 'absolute',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    bottom: '0',
+                }}
+            >
+                <Button 
+                    xs={12}
+                    variant="contained"
+                    component={Link}
+                    to="/"
+                    sx={{
+                        backgroundColor: 'white',
+                        ':hover': {
+                            color: 'white',
+                            bgcolor: theme.palette.chloe_beige.main,
+                            borderColor: 'white',
+                        },
+                        color: 'inherit',
+                        fontFamily: theme.typography.font_style.poppins,
+                        fontSize: theme.typography.font_size.s,
+                        fontWeight: theme.typography.font_weight.extra_light,
+                        borderRadius: '.25rem',
+                        borderStyle: 'solid',
+                        borderColor: 'black',
+                        borderWidth: '.1rem'
+
+                    }}
+                >
+                    Back
+                </Button>
+            </Grid>
             </Grid>
         </Box>
     )
