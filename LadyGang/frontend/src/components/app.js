@@ -25,6 +25,9 @@ const theme = createTheme({
           light: '#FFFDD6',
           very_light: '#FFFEEB'
         },
+        chloe_beige:{
+          main: '#FEE2C6'
+        },
         fairy_pink: {
             main: '#FFCBDD',
             light: '#FFEBF2',
@@ -44,6 +47,99 @@ const theme = createTheme({
             light: '#CDD9DF'
         }
       },
+      typography: {
+        font_style: {
+          poppins: {
+            fontFamily: 'Poppins, sans-serif'
+          },
+          chloe: {
+            fontFamily: 'Playfair Display, serif'
+          },
+          raleway: {
+            fontFamily: 'Raleway, sans-serif'
+          },
+          sacramento: {
+            fontFamily: 'Sacramento, cursive'
+          },
+          julius: {
+            fontFamily: 'Julius Sans One, sans-serif'
+          },
+          josefin: {
+            fontFamily: 'Josefin Sans, sans-serif'
+          },
+          elsie_swash: {
+            fontFamily: 'Elsie Swash Caps, cursive'
+          },
+          elsie: {
+            fontFamily: 'Elsie, cursive'
+          },
+          cormorant_sc: {
+            fontFamily: 'Cormorant SC, serif'
+          },
+          cormorant_infant: {
+            fontFamily: 'Cormorant Infant, serif'
+          },
+          cormorant_garamond: {
+            fontFamily: 'Cormorant Garamond, serif'
+          },
+          antic: {
+            fontFamily: 'Antic Didone, serif'
+          },
+        },
+        font_weight: {
+          thin: {
+            fontWeight: '100'
+          },
+          extra_light: {
+            fontWeight: '200'
+          },
+          light: {
+            fontWeight: '300'
+          },
+          regular: {
+            fontWeight: '400'
+          },
+          medium: {
+            fontWeight: '500'
+          },
+          semi_bold: {
+            fontWeight: '600'
+          },
+          bold: {
+            fontWeight: '700'
+          },
+          extra_bold: {
+            fontWeight: '800'
+          },
+          black: {
+            fontWeight: '900'
+          }
+        },
+        font_size: {
+          xs: {
+            fontSize: '1vmin'
+          },
+          s: {
+            fontSize: '1.5vmin'
+          },
+          m: {
+            fontSize: '3vmin'
+          },
+          l: {
+            fontSize: '4vmin'
+          },
+          xl: {
+            fontSize: '5vmin'
+          },
+          title: {
+            fontSize: '6vmin'
+          },
+          hero: {
+            fontSize: '11vmin'
+          }
+        }
+        
+      },
 });
 
 createTheme();
@@ -53,7 +149,7 @@ const App = () => {
     return (
     <ThemeProvider theme={theme}>
         <NavBar/>
-        <div className="center">
+        <div className="full_width full_height">
             <Router>
                 <Routes>
                     <Route exact path="/" element={<HomePage />} />

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+    Box,
     Card,
     CardContent,
     Typography,
@@ -89,51 +90,70 @@ const SupportPage = () => {
 
 
     return(
-        <React.Fragment>
-            <Grid container spacing={1}
-            component="span"
-            sx={{ 
-                display: 'inline-block',
-                mx: '2px',
-                transform: 'scale(1.5)'}}
-            >
-                <Card
+        <Box
+            id='landing_page_hero' sx={{
+            display: 'flex',
+            alignItems: 'baseline',
+            justifyContent: 'center',
+            wrap: 'wrap',
+            marginTop: '0',
+            height: '100%',
+            width: '100%',
+            backgroundColor: theme.palette.chloe_beige.main }}
+        >
+            <Grid container xs={12} spacing={1} align='center'>
+                <Grid item xs={12} align='center'>
+                    <Typography
+                        variant='h4'
+                        component='h4'
+                        sx={{
+                            fontFamily: theme.typography.font_style.chloe,
+                            fontWeight: theme.typography.font_weight.bold,
+                            fontSize: theme.typography.font_size.title,
+                            color: 'white',
+                            paddingTop: '8%',
+                            paddingBottom: '5%'
+                        }}
+                    >
+                    Support
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} align='center'>
+                    <Card
                     variant="outlined"
                     align='center'
                     sx={{
-                        backgroundColor: theme.palette.fairy_pink.light
+                        backgroundColor: 'white',
+                        fontFamily: theme.typography.font_style.poppins,
+                        width: '40%'
                     }}>
-                    <CardContent >
-                        <Grid 
-                            item xs={12} 
-                            align="center"
+                    <CardContent>
+                        <Typography
+                            variant='h6' 
+                            component='h6'
                             sx={{
-                                color: theme.palette.grey.very_dark
-                            }}>
-                            <Typography variant='h6' component='h6'>
-                            Send a Message
-                            </Typography>
-                        </Grid>
+                                fontFamily: 'inherit'
+                            }}
+                        >
+                        Send a Message
+                        </Typography>
                         <FormControl>
-                        <Grid item xs={12} align="center">
                             <FormHelperText>
                                 Let the site developer know what's going on:
                             </FormHelperText>
-                        </Grid>
-                        <Grid item xs={12} align="center">
                             <TextField
+                                align='center'
                                 required
                                 type="string"
-                                placeholder="Please describe the error in as much detail as possible"
+                                placeholder="Please describe the error in as much detail as possible (required*)"
                                 onChange={handleFormMessageChange}
                                 value={formMessage}
                                 multiline={true}
                                 sx={{
                                     textAlign: 'center',
                                     background: 'white',
+                                    fontFamily: 'inherit'
                                     }}/>
-                        </Grid>
-                        <Grid item xs={12} align="center">
                             <TextField
                                 type="string"
                                 placeholder="Enter Your name (optional*)"
@@ -145,8 +165,6 @@ const SupportPage = () => {
                                     background: 'white',
                                     marginTop: '10px',
                                     }}/>
-                        </Grid>
-                        <Grid item xs={12} align="center">
                             <TextField
                                 type="string"
                                 placeholder="Enter Your Email (optional*)"
@@ -158,20 +176,28 @@ const SupportPage = () => {
                                     background: 'white',
                                     marginTop: '10px',
                                     }}/>
-                        </Grid>
-                        <Grid item xs={12} align="center">
+                        <Grid 
+                            item xs={12} 
+                            align="center"
+                            sx={{
+                                paddingTop: '5%'
+                            }}
+                        >
                             <Button 
                                 variant='contained'
                                 color='inherit'
                                 sx={{
-                                    textAlign: 'center',
-                                    marginTop: '10px',
-                                    color: theme.palette.rose.light,
-                                    border: ['solid', 'double' ],
-                                    borderWidth: '1px',
-                                    borderRadius: '6px',
-                                    backgroundColor: theme.palette.fairy_pink.main
-                                        }}
+                                    backgroundColor: theme.palette.chloe_beige.main,
+                                    ':hover': {
+                                        color: 'white',
+                                        bgcolor: theme.palette.chloe_beige.main
+                                    },
+                                    color: 'inherit',
+                                    fontFamily: 'inherit',
+                                    fontSize: theme.typography.font_size.s,
+                                    fontWeight: theme.typography.font_weight.extra_light,
+                                    borderRadius: '.15rem',
+                                }}
                                 onClick={handleSendButtonClicked}>
                                 Send
                             </Button>
@@ -179,8 +205,9 @@ const SupportPage = () => {
                         </FormControl>
                     </CardContent>
                 </Card>
+                </Grid>
             </Grid>
-        </React.Fragment>
+        </Box>
     )
 }
 export default SupportPage

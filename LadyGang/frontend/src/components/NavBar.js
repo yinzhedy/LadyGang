@@ -31,7 +31,9 @@ const NavBar = () => {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" 
                 sx={{
-                backgroundColor: theme.palette.fairy_pink.main,
+                backgroundColor: 'white',
+                fontFamily: theme.typography.font_style.poppins,
+                color: 'black',
                 mr: 2,
                 }}>
                 <Toolbar >
@@ -57,9 +59,18 @@ const NavBar = () => {
                         MenuListProps={{
                             'aria-labelledby': 'nav-menu-icon-button',
                         }}>
-                        <MenuItem data-value='/' onClick={handleMenuItemClick}>Home</MenuItem>
-                        <MenuItem data-value='/music' onClick={handleMenuItemClick}>Music</MenuItem>
-                        <MenuItem data-value='/support' onClick={handleMenuItemClick}>Support</MenuItem>
+                        <MenuItem data-value='/' onClick={handleMenuItemClick} 
+                            sx={{fontFamily: theme.typography.font_style.poppins,
+                                fontWeight: theme.typography.font_weight.light}}>
+                            Home</MenuItem>
+                        <MenuItem data-value='/music' onClick={handleMenuItemClick }
+                            sx={{fontFamily: theme.typography.font_style.poppins,
+                                fontWeight: theme.typography.font_weight.light}}>
+                            Music</MenuItem>
+                        <MenuItem data-value='/support' onClick={handleMenuItemClick}
+                            sx={{fontFamily: theme.typography.font_style.poppins,
+                                fontWeight: theme.typography.font_weight.light}}>
+                            Support</MenuItem>
                     </Menu>
                     <Button  sx={{
                             flexGrow: 0, // Don't take up all available space
@@ -71,6 +82,9 @@ const NavBar = () => {
                         onClick={() => { window.location.href = '/' }}>
                         <Typography variant="h6"
                             component="div"
+                            sx={{
+                                fontWeight: theme.typography.font_weight.light
+                            }}
                             >
                         LadyGang
                         </Typography>
@@ -78,6 +92,7 @@ const NavBar = () => {
                     <Button color="inherit"
                         sx={{
                             marginLeft: 'auto', // Pushes "Support" to the right
+                            fontWeight: theme.typography.font_weight.light
                         }}
                         onClick={() => { window.location.href = '/support' }}
                         >

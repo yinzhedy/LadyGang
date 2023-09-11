@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import {Grid, Button, Typography} from '@mui/material'
+import {useTheme, Box, Grid, Button, Typography} from '@mui/material'
 
 function RoomPage() {
   const { roomCode } = useParams();
@@ -11,6 +11,7 @@ function RoomPage() {
   const [roomCodeDisplay, setRoomCodeDisplay] = useState(roomCode);
   const [showSettings, setShowSettings] = useState(false);
   const navigate = useNavigate();
+  const theme = useTheme();
 
   // Use the useEffect hook to simulate componentDidMount behavior
   
@@ -83,64 +84,190 @@ function RoomPage() {
     }
   }
 
+  function renderHostGreeting() {
+      return(
+        <Grid item xs={12} align='center'>
+            <Typography
+            sx={{
+              fontFamily: theme.typography.font_style.sacramento,
+              fontWeight: theme.typography.font_weight.light,
+              fontSize: theme.typography.font_size.l,
+              color: 'black',
+              width: '40%',
+              paddingBottom: '5%',
+              }}
+            >
+                lets jam
+            </Typography>
+        </Grid>
+      )
+  }
+
   function renderSettingsButton() {
 
       console.log('showSettings is: ' + showSettings)
       return (
-        <Grid item xs={12} align='center'>
-          <Button variant='contained'
+        <Grid 
+          item xs={12} 
+          align='center'
+        >
+          <Typography
+            sx={{
+              width: '40%',
+              paddingTop: '3%',
+              paddingBottom: '5%',
+              backgroundColor: 'white'
+            }}
+          >
+            <Button 
+            variant='contained'
             color='primary'
             onClick={() =>{
               handleSettingsButtonClicked()
-            }}>
-              Settings
-          </Button>
+            }}
+            sx={{
+              backgroundColor: theme.palette.chloe_beige.main,
+              ':hover': {
+                  color: 'white',
+                  bgcolor: theme.palette.chloe_beige.main
+              },
+              color: 'inherit',
+              fontFamily: 'inherit',
+              fontSize: theme.typography.font_size.s,
+              fontWeight: theme.typography.font_weight.extra_light,
+              borderRadius: '.15rem',
+            }}
+          >
+              Room Settings
+            </Button>
+          </Typography>
+          
         </Grid>
       )
     };
 
 
   return (
-    <div>
-      <Grid container spacing={1}>
+    <Box
+    sx={{
+      display: 'flex',
+      alignItems: 'baseline',
+      justifyContent: 'center',
+      wrap: 'wrap',
+      marginTop: '0',
+      marginLeft: '0',
+      height: '100%',
+      width: '100% + 24px',
+      backgroundColor: theme.palette.chloe_beige.main,
+      fontFamily: theme.typography.font_style.poppins,
+    }}
+    >
+      <Grid container spacing={0}>
 
         <Grid item xs={12} align='center'>
-          <Typography variant='h6' component='h6'>
-            Room Name: {roomName}
+          <Typography
+            variant='h4'
+            component='h4'
+            sx={{
+              fontFamily: theme.typography.font_style.chloe,
+              fontWeight: theme.typography.font_weight.bold,
+              fontSize: theme.typography.font_size.title,
+              color: 'white',
+              paddingTop: '8%',
+              }}
+          >
+            {roomName}
           </Typography>
         </Grid>
-
+        {isHost ? renderHostGreeting() : null}
         <Grid item xs={12} align='center'>
-          <Typography variant='h6' component='h6'>
+          <Typography 
+            sx={{
+              fontFamily: 'inherit',
+              fontWeight: theme.typography.font_weight.extra_light,
+              fontSize: theme.typography.font_size.m,
+              color: 'black',
+              width: '40%',
+              paddingTop: '3%',
+              backgroundColor: 'white'
+              }}
+          >
             Code: {roomCodeDisplay}
           </Typography>
         </Grid>
 
         <Grid item xs={12} align='center'>
-          <Typography variant='h6' component='h6'>
+          <Typography
+            sx={{
+              fontFamily: 'inherit',
+              fontWeight: theme.typography.font_weight.extra_light,
+              fontSize: theme.typography.font_size.m,
+              color: 'black',
+              width: '40%',
+              paddingTop: '3%',
+              backgroundColor: 'white'
+              }}s
+          >
             Votes: {votesToSkip}
           </Typography>
         </Grid>
 
         <Grid item xs={12} align='center'>
-          <Typography variant='h6' component='h6'>
+          <Typography
+            sx={{
+              fontFamily: 'inherit',
+              fontWeight: theme.typography.font_weight.extra_light,
+              fontSize: theme.typography.font_size.m,
+              color: 'black',
+              width: '40%',
+              paddingTop: '3%',
+              backgroundColor: 'white'
+              }}
+          >
             Guest Can Pause: {guestCanPause ? 'Yes' : 'No'}
           </Typography>
         </Grid>
-
-        <Grid item xs={12} align='center'>
-          <Typography variant='h6' component='h6'>
-            Host: {isHost ? 'Yes' : 'No'}
-          </Typography>
-        </Grid>
         {showSettings ? renderSettingsButton() : null }
-        <Grid item xs={12} align='center'>
-          <Button color='secondary' variant='contained' onClick={leaveButtonPressed}>
+        <Grid 
+          item xs={12} 
+          align='center'
+          sx={{
+            width: '100%',
+            paddingTop: '3%',
+            paddingBottom: '3%',
+            position: 'absolute',
+            display: 'flex',
+            justifyContent: 'center',
+            bottom: '0',
+          }}
+        >
+          <Button 
+            color='secondary' 
+            variant='contained' 
+            onClick={leaveButtonPressed}
+            sx={{
+              backgroundColor: 'white',
+              ':hover': {
+                  color: 'white',
+                  bgcolor: theme.palette.chloe_beige.main,
+                  borderColor: 'white',
+              },
+              color: 'inherit',
+              fontFamily: 'inherit',
+              fontSize: theme.typography.font_size.s,
+              fontWeight: theme.typography.font_weight.light,
+              borderRadius: '.25rem',
+              borderStyle: 'solid',
+              borderColor: 'black',
+              borderWidth: '.1rem'
+
+            }}
+          >
             Leave Room
           </Button>
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 }
 

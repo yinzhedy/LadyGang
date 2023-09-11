@@ -18,9 +18,81 @@ html, body {
     
 }
 
-.center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+
+
+
+.font_poppins {
+    font-family: 'Poppins', sans-serif;
+}
+
+.font_raleway {
+    font-family: 'Raleway', sans-serif;
+}
+
+.font_sacramento {
+    font-family: 'Sacramento', cursive;
+}
+
+.font_chloe {
+    font-family: 'Playfair Display', serif;
+}
+
+.font_julius {
+    font-family: 'Julius Sans One', sans-serif;
+}
+
+.font_josefin {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.font_elsie_swash {
+    font-family: 'Elsie Swash Caps', cursive;
+}
+
+.font_elsie {
+    font-family: 'Elsie', cursive;
+}
+
+.font_cormorant_sc {
+    font-family: 'Cormorant SC', serif;
+}
+
+.font_cormorant_infant {
+    font-family: 'Cormorant Infant', serif;
+}
+
+.font_cormorant_garamond {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.font_antic {
+    font-family: 'Antic Didone', serif;
+}
+
+
+.align_items_center {
+    align-items: center;
+}
+
+.justify_items_center {
+    justify-items: center;
+}
+
+
+.full_width{
+    width: 100%;
+
+}
+
+.full_height {
+    height: 100%;
+}
+
+.padding_top {
+    padding-top: 5%;
+}
+
+#landing_page_hero {
+    font-size: 5%;
 }
