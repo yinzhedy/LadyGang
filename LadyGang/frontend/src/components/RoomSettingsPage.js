@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import {useTheme, Card, Grid, Box, Button, IconButton, Typography, TextField, FormControl, FormControlLabel, RadioGroup, Radio} from '@mui/material'
+import {
+    useTheme, 
+    Collapse,
+    Card, 
+    Grid, 
+    Box, 
+    Button, 
+    IconButton, 
+    Typography, 
+    TextField, 
+    FormControl, 
+    FormControlLabel, 
+    RadioGroup, 
+    Radio} 
+    from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 
@@ -14,6 +28,8 @@ function RoomSettingsPage() {
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingVotes, setIsEditingVotes] = useState(false);
     const [isEditingPause, setIsEditingPause] = useState(false);
+    const [roomUpdated, setRoomUpdated] = useState(false);
+    const [updateMessage, setUpdateMessage] = useState('');
     const navigate = useNavigate();
     const theme = useTheme();
 
@@ -61,15 +77,19 @@ function RoomSettingsPage() {
                 code: roomCode,
                 }),
             };
-            console.log('Request Options:', requestOptions)
             fetch('/api/update-room', requestOptions)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
-                navigate('/music/room/' + data.code);
+                if(data) {
+                    setRoomUpdated(true);
+                    setUpdateMessage('Room settings updated!')
+                    console.log('Room successfully updated!')
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);
+                setRoomUpdated(false)
+                setUpdateMessage('Error: ' + error)
             });
     };
 
@@ -80,11 +100,8 @@ function RoomSettingsPage() {
 
     //Editable Typography Code
     function handleSaveIconClick(target) {
-        console.log(isEditing)
-        console.log(isEditingName)
-        console.log(isEditingPause)
-        console.log(isEditingVotes)
-        console.log(target)
+        setRoomUpdated(false)
+
         if (target === 'roomName') {
             setIsEditingName(false);
         }
@@ -98,10 +115,8 @@ function RoomSettingsPage() {
     }
 
     function handleEditIconClick(target) {
-        console.log(isEditing)
-        console.log(isEditingName)
-        console.log(isEditingPause)
-        console.log(isEditingVotes)
+        setRoomUpdated(false)
+
         if (target === 'roomName') {
             setIsEditingName(true);
         }
@@ -458,6 +473,22 @@ function RoomSettingsPage() {
                 Settings
                 </Typography>
 
+            </Grid>
+            <Grid item xs={12} align='center'>
+                <Collapse in={roomUpdated === true}>
+                    <Typography
+                        sx={{
+                            fontFamily: theme.typography.font_style.sacramento,
+                            fontWeight: theme.typography.font_weight.light,
+                            fontSize: theme.typography.font_size.l,
+                            color: 'black',
+                            paddingTop: '2%',
+                            paddingBottom: '2%'
+                        }}
+                    >
+                    {updateMessage}
+                    </Typography>
+                </Collapse>
             </Grid>
             <Grid item xs={12} align='center'>
                 <Card
