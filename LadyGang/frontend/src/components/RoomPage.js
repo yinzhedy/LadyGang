@@ -10,6 +10,7 @@ function RoomPage() {
   const [isHost, setIsHost] = useState(false);
   const [roomCodeDisplay, setRoomCodeDisplay] = useState(roomCode);
   const [showSettings, setShowSettings] = useState(false);
+  const [spotifyAuthenticated, setSpotifyAuthenticated] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -39,6 +40,10 @@ function RoomPage() {
           setGuestCanPause(data.guest_can_pause);
           setIsHost(data.is_host);
           setShowSettings(data.is_host)
+          if (data.is_host === true) {
+            console.log('triggered')
+            authenticateSpotify()
+          }
         } 
         else {
           // Handle the case when there are no rooms with the given code
@@ -51,6 +56,33 @@ function RoomPage() {
         }
       });
   }, [roomCode]);
+
+  function authenticateSpotify() {
+    fetch(`/spotify/is-authenticated`)
+    .then(response => {
+      if (!response.ok){
+        console.log(response)
+        console.log('Issue with fetching is-authenticated api endpoint')
+      }
+      else {
+        return response.json()
+      }
+      })
+    .then(data => {
+      console.log(data)
+      setSpotifyAuthenticated(data.status)
+      if(!data.status) {
+        fetch(`/spotify/get-auth-url`)
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          console.log(data.url)
+          window.location.replace(data.url);
+        })
+      }
+    });
+  }
 
   function leaveButtonPressed() {
     const requestOptions = {

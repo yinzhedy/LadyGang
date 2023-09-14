@@ -22,5 +22,7 @@ urlpatterns = [
     #if see first arg, send to rest of url at second arg (file)
     path('api/', include('api.urls')),
     #send to frontend urls file
-    path('', include('frontend.urls'))
+    path('', include('frontend.urls')),
+    #include spotify urls
+    path('spotify/', include('spotify.urls'))
 ]   
