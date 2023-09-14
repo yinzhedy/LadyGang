@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from .credentials import REDIRECT_URI, CLIENT_SECRET, CLIENT_ID
-
+from api.models import Room
 from rest_framework.views import APIView
 from requests import Request, post
 from rest_framework import status
 from rest_framework.response import Response
 
-from .util import update_or_create_user_tokens, is_spotify_authenticated
+from .util import *
 
 # Create your views here.
 #authen application / request access
@@ -65,3 +65,49 @@ class IsAuthenticated(APIView):
     def get(self, request, format=None):
         is_authenticated = is_spotify_authenticated(self.request.session.session_key)
         return Response({'status': is_authenticated}, status=status.HTTP_200_OK)
+    
+
+#return info about current song
+class CurrentSong(APIView):
+    def get(self, request, format=None):
+        room_code = self.request.session.get('room_code')
+        #if person sending request is not host, find host and use their info to get song info
+        room = Room.objects.filter(code=room_code)
+        if room.exists():
+            room = room[0]
+        else:
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
+        host = room.host
+        endpoint = "player/currently-playing"
+        #send get request to spotify
+        response = execute_spotify_api_request(host, endpoint)
+        #if no song playing, return nothing but status
+        if 'error' in response or 'item' not in response:
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+        
+        item = response.get('item')
+        duration = item.get('duration_ms')
+        progress = response.get('progress_ms')
+        album_cover = item.get('album').get('images')[0].get('url')
+        is_playing = response.get('is_playing')
+        song_id = item.get('id')
+        #handle multiple artists
+        artist_string = ''
+        for i, artist in enumerate(item.get('artists')):
+            if i > 0:
+                artist_string += ', '
+            name = artist.get('name')
+            artist_string += name
+        
+        song = {
+            'title': item.get('name'),
+            'artist': artist_string,
+            'duration' : duration,
+            'time': progress,
+            'image_url': album_cover,
+            'is_playing' : is_playing,
+            'votes': 0,
+            'id' : song_id
+        }
+                
+        return Response(song, status=status.HTTP_200_OK)

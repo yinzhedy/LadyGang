@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import {useTheme, Box, Grid, Button, Typography} from '@mui/material'
+import MusicPlayer from './MusicPlayer';
 
 function RoomPage() {
   const { roomCode } = useParams();
@@ -11,6 +12,7 @@ function RoomPage() {
   const [roomCodeDisplay, setRoomCodeDisplay] = useState(roomCode);
   const [showSettings, setShowSettings] = useState(false);
   const [spotifyAuthenticated, setSpotifyAuthenticated] = useState(false);
+  const [currentSong, setCurrentSong] = useState({})
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -18,6 +20,9 @@ function RoomPage() {
   
   useEffect(() => {
 
+    const interval = setInterval(() =>{
+      getCurrentSong();
+    }, 1000);
 
     fetch(`/api/get-room/${roomCode}`)
       .then(response => {
@@ -41,7 +46,7 @@ function RoomPage() {
           setIsHost(data.is_host);
           setShowSettings(data.is_host)
           if (data.is_host === true) {
-            console.log('triggered')
+            console.log('is host, authenticating spotify..')
             authenticateSpotify()
           }
         } 
@@ -55,7 +60,35 @@ function RoomPage() {
           console.log('No room data found');
         }
       });
-  }, [roomCode]);
+
+      return () => {
+        clearInterval(interval)
+      };
+
+
+  }, [roomCode])
+  
+
+
+  function getCurrentSong() {
+    console.log(currentSong)
+    fetch(`/spotify/current-song`)
+    .then(response => {
+      if (!response.ok) {
+        console.log('couldnt find song')
+        return {};
+      }
+      else {
+        return response.json();
+      }
+    })
+    .then(data => {
+      console.log('current song found')
+      console.log(data)
+      console.log(data.title)
+      setCurrentSong(data)
+    })
+  }
 
   function authenticateSpotify() {
     fetch(`/spotify/is-authenticated`)
@@ -65,6 +98,8 @@ function RoomPage() {
         console.log('Issue with fetching is-authenticated api endpoint')
       }
       else {
+        console.log(response)
+        console.log('response was ok fetching is-authenticated api endpoint')
         return response.json()
       }
       })
@@ -209,9 +244,9 @@ function RoomPage() {
               }}
           >
             {roomName}
-          </Typography>
-        </Grid>
         {isHost ? renderHostGreeting() : null}
+        </Typography>
+        </Grid>
         <Grid item xs={12} align='center'>
           <Typography 
             sx={{
@@ -224,40 +259,17 @@ function RoomPage() {
               backgroundColor: 'white'
               }}
           >
-            Code: {roomCodeDisplay}
+            Invite Code: {roomCodeDisplay}
           </Typography>
         </Grid>
-
         <Grid item xs={12} align='center'>
-          <Typography
-            sx={{
-              fontFamily: 'inherit',
-              fontWeight: theme.typography.font_weight.extra_light,
-              fontSize: theme.typography.font_size.m,
-              color: 'black',
-              width: '40%',
-              paddingTop: '3%',
-              backgroundColor: 'white'
-              }}s
-          >
-            Votes: {votesToSkip}
-          </Typography>
-        </Grid>
-
-        <Grid item xs={12} align='center'>
-          <Typography
-            sx={{
-              fontFamily: 'inherit',
-              fontWeight: theme.typography.font_weight.extra_light,
-              fontSize: theme.typography.font_size.m,
-              color: 'black',
-              width: '40%',
-              paddingTop: '3%',
-              backgroundColor: 'white'
-              }}
-          >
-            Guest Can Pause: {guestCanPause ? 'Yes' : 'No'}
-          </Typography>
+          <MusicPlayer
+          title={currentSong.title}
+          artist={currentSong.artist}
+          duration={currentSong.duration}
+          time={currentSong.time}
+          image_url={currentSong.image_url}
+          />
         </Grid>
         {showSettings ? renderSettingsButton() : null }
         <Grid 
